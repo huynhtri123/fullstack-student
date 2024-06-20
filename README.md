@@ -1,1 +1,1 @@
-Management student (CRUD, search) by Springboot + React 
+Student management (CRUD, search) by Springboot + React 
