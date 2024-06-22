@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import studentApi from "../../api/studentApi";
 
 function UpdateStudent() {
@@ -34,6 +36,7 @@ function UpdateStudent() {
     e.preventDefault();
     await studentApi.update(id, student);
     navigate("/");
+    toast.success("Updated student successfully");
   };
 
   return (

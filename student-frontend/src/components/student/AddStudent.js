@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import studentApi from "../../api/studentApi";
 
 function AddStudent() {
@@ -21,6 +23,7 @@ function AddStudent() {
     e.preventDefault();
     await studentApi.add(student);
     navigate("/");
+    toast.success("Added student successfully");
   };
 
   return (

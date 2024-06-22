@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import studentApi from "../api/studentApi";
 import { useSearch } from "../customs/hooks";
@@ -7,7 +8,7 @@ import { useSearch } from "../customs/hooks";
 function Table() {
   const [listStudents, setListStudents] = useState([]);
 
-  //use list found from search
+  //use list found from search (useContext)
   const [listFound, setListFound] = useSearch();
 
   useEffect(() => {
@@ -21,6 +22,7 @@ function Table() {
 
   const handleDeleteStudent = async (id) => {
     await studentApi.delete(id);
+    toast.warning(`Deleted student with id = ${id}`);
     getListStudents();
   };
 
