@@ -1,17 +1,23 @@
 package fullstack.student.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
+@Schema(description = "Student entity")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Schema(description = "Unique identifier of Student", example = "1")
     private int id;
+    @Schema(description = "Name of Student", example = "Tri")
     private String name;
+    @Schema(description = "Email of Student", example = "tri@gmail.com")
     private String email;
+    @Schema(description = "Address of Student", example = "Long An, VietNam")
     private String address;
 
     public Student(String name, String email, String address) {
