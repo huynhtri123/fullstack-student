@@ -1,0 +1,51 @@
+.product-component {
+  margin: 20px;
+}
+
+.product-input {
+  display: flex;
+  flex-direction: column; /* Để các phần tử nằm dọc */
+  border-radius: 5px;
+
+  .input-product-title {
+    font-size: 18px; /* Kích thước chữ */
+    font-weight: bold; /* Chữ đậm */
+    margin-bottom: 5px; /* Khoảng cách giữa label và input */
+    text-align: center; /* Căn giữa văn bản */
+    color: #333; /* Màu chữ */
+  }
+}
+
+.product-input label {
+  margin-bottom: 10px; /* Khoảng cách giữa label và input */
+}
+
+.productList {
+  border: 1px solid #ccc;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  margin: 20px;
+}
+
+.products {
+  flex: 1 0 18%; /* Mỗi sản phẩm chiếm khoảng 18% không gian */
+  max-width: 18%; /* Đảm bảo mỗi sản phẩm không vượt quá 18% chiều rộng của hàng */
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 10px; /* Khoảng cách giữa các sản phẩm */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+}
+
+h3 {
+  margin-bottom: 10px;
+  text-align: center;
+}

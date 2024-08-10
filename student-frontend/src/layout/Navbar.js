@@ -12,6 +12,7 @@ import {
   AddStudent,
   UpdateStudent,
   ViewStudent,
+  Products,
 } from "../components";
 import "../scss/Navbar.scss";
 import studentApi from "../api/studentApi";
@@ -70,6 +71,15 @@ function Navbar() {
             Add Student
           </Link>
 
+          <Link
+            className={`navbar-brand nav-link-hover ${
+              location.pathname === "/products" ? "active" : ""
+            }`}
+            to="/products"
+          >
+            Products
+          </Link>
+
           <button
             className="navbar-toggler"
             type="button"
@@ -114,6 +124,7 @@ function Navbar() {
           path="/viewStudent/:id"
           element={<ViewStudent></ViewStudent>}
         ></Route>
+        <Route path="/products" element={<Products></Products>}></Route>
       </Routes>
     </div>
   );

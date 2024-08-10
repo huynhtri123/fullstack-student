@@ -25,7 +25,7 @@ function Table() {
     toast.warning(`Deleted student with id = ${id}`);
     getListStudents();
   };
-
+  
   const studentsToDisplay = listFound.length > 0 ? listFound : listStudents;
 
   return (

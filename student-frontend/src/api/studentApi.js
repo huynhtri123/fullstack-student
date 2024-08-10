@@ -2,27 +2,27 @@ import axiosClient from "./axiosClient";
 
 const studentApi = {
   getAll() {
-    const url = "/getAllStudents";
+    const url = "/student/getAllStudents";
     return axiosClient.get(url);
   },
   get(id) {
-    const url = `/getStudent/${id}`;
+    const url = `/student/getStudent/${id}`;
     return axiosClient.get(url);
   },
   add(data) {
-    const url = "/createStudent";
+    const url = "/student/createStudent";
     return axiosClient.post(url, data);
   },
   update(id, data) {
-    const url = `/updateStudent/${id}`;
+    const url = `/student/updateStudent/${id}`;
     return axiosClient.put(url, data);
   },
   delete(id) {
-    const url = `/deleteStudent/${id}`;
+    const url = `/student/deleteStudent/${id}`;
     return axiosClient.delete(url);
   },
   searchByName(keyword) {
-    const url = `/search?keyword=${keyword}`;
+    const url = `/student/search?keyword=${keyword}`;
     return axiosClient.get(url);
   },
 };
