@@ -1,1 +1,1 @@
-Student management (CRUD, search) by Springboot + React 
+Practice BE + FE by Springboot + React 
