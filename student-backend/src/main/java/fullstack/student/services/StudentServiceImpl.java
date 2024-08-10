@@ -22,11 +22,11 @@ public class StudentServiceImpl implements StudentService{
         List<Student> listStudents = studentRepository.findAll();
         if (listStudents.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("FAILED", "Cannot find list student", "")
+                    new ResponseObject("Cannot find list student", HttpStatus.NOT_FOUND.value(), "")
             );
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("OK", "Successfully", listStudents)
+                    new ResponseObject( "Successfully", HttpStatus.OK.value(), listStudents)
             );
         }
     }
@@ -36,11 +36,11 @@ public class StudentServiceImpl implements StudentService{
         Optional<Student> student = studentRepository.findById(id);
         if (student.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("OK", "Successfully", student.get())
+                    new ResponseObject( "Successfully", HttpStatus.OK.value(), student.get())
             );
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("FAILED", "Cannot find student!", "")
+                    new ResponseObject( "Cannot find student!", HttpStatus.NOT_FOUND.value(), "")
             );
         }
     }
@@ -48,7 +48,7 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public ResponseEntity<ResponseObject> createStudent(Student student) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("OK", "created student", studentRepository.save(student))
+                new ResponseObject("created student", HttpStatus.OK.value(), studentRepository.save(student))
         );
     }
 
@@ -58,11 +58,11 @@ public class StudentServiceImpl implements StudentService{
         if (exists){
             studentRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("OK", "deleted student", "")
+                    new ResponseObject( "deleted student", HttpStatus.OK.value(), "")
             );
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("FAILED", "Cannot find student", "")
+                    new ResponseObject( "Cannot find student", HttpStatus.OK.value(), "")
             );
         }
 
@@ -85,11 +85,11 @@ public class StudentServiceImpl implements StudentService{
 
         if (isUpdate){
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("OK", "Update student successfully", updatedStudent)
+                    new ResponseObject( "Update student successfully", HttpStatus.OK.value(), updatedStudent)
             );
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("OK", "Create student successfully", updatedStudent)
+                    new ResponseObject( "Create student successfully", HttpStatus.OK.value(), updatedStudent)
             );
         }
     }
@@ -99,11 +99,11 @@ public class StudentServiceImpl implements StudentService{
        List<Student> listFound = studentRepository.searchStudentByNameContainingIgnoreCase(input);
        if (listFound.isEmpty()){
            return ResponseEntity.status(HttpStatus.OK).body(
-                   new ResponseObject("EMPTY", "Cannot find with this keyword", new ArrayList<>())
+                   new ResponseObject( "Cannot find with this keyword", HttpStatus.NOT_FOUND.value(), null)
            );
        } else {
            return ResponseEntity.status(HttpStatus.OK).body(
-                   new ResponseObject("OK", "OK", listFound)
+                   new ResponseObject("OK", HttpStatus.OK.value(), listFound)
            );
        }
     }
