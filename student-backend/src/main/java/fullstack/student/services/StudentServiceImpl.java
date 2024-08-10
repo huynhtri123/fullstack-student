@@ -1,14 +1,15 @@
 package fullstack.student.services;
 
-import fullstack.student.models.ResponseObject;
-import fullstack.student.models.Student;
+import fullstack.student.models.dto.ResponseObject;
+import fullstack.student.models.dto.StudentRequestDTO;
+import fullstack.student.models.entity.Student;
 import fullstack.student.repositories.StudentRepository;
+import fullstack.student.utils.mapper.StudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,8 @@ import java.util.Optional;
 public class StudentServiceImpl implements StudentService{
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public ResponseEntity<ResponseObject> getAllStudents() {
@@ -46,9 +49,11 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public ResponseEntity<ResponseObject> createStudent(Student student) {
+    public ResponseEntity<ResponseObject> createStudent(StudentRequestDTO studentRequestDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("created student", HttpStatus.OK.value(), studentRepository.save(student))
+                new ResponseObject("created student",
+                        HttpStatus.OK.value(),
+                        studentRepository.save(studentMapper.convertToEntity(studentRequestDTO)))
         );
     }
 
@@ -69,29 +74,22 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public ResponseEntity<ResponseObject> updateStudent(int id, Student newStudent) {
-        boolean isUpdate = studentRepository.existsById(id);
-
-        Student updatedStudent =studentRepository.findById(id)
-                .map(student -> {
-                    student.setName(newStudent.getName());
-                    student.setEmail(newStudent.getEmail());
-                    student.setAddress(newStudent.getAddress());
-
-                    return studentRepository.save(student);
-                }).orElseGet(()-> {
-                    return studentRepository.save(newStudent);
-                });
-
-        if (isUpdate){
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject( "Update student successfully", HttpStatus.OK.value(), updatedStudent)
-            );
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject( "Create student successfully", HttpStatus.OK.value(), updatedStudent)
+    public ResponseEntity<ResponseObject> updateStudent(int id, StudentRequestDTO studentRequestDTO) {
+        Student student = studentRepository.findById(id).orElse(null);
+        if (student == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("Student not found", HttpStatus.NOT_FOUND.value(), null)
             );
         }
+        student.setName(studentRequestDTO.getName());
+        student.setEmail(studentRequestDTO.getEmail());
+        student.setAddress(studentRequestDTO.getAddress());
+
+        studentRepository.save(student);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("Updated successfully", HttpStatus.OK.value(),
+                        studentMapper.convertToDTO(student))
+        );
     }
 
     @Override

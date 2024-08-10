@@ -1,4 +1,4 @@
-package fullstack.student.models;
+package fullstack.student.models.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

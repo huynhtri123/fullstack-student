@@ -1,11 +1,13 @@
 package fullstack.student.controllers;
 
-import fullstack.student.models.ResponseObject;
-import fullstack.student.models.Student;
+import fullstack.student.models.dto.ResponseObject;
+import fullstack.student.models.dto.StudentRequestDTO;
+import fullstack.student.models.entity.Student;
 import fullstack.student.services.StudentServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +39,8 @@ public class StudentController {
     @Operation(summary = "Create a new student", description = "Return a list of students")
     @ApiResponse(responseCode = "200", description = "List found")
     @PostMapping("createStudent")
-    public ResponseEntity<ResponseObject> createStudent(@RequestBody Student student){
-        return studentService.createStudent(student);
+    public ResponseEntity<ResponseObject> createStudent(@RequestBody @Valid StudentRequestDTO studentRequestDTO){
+        return studentService.createStudent(studentRequestDTO);
     }
 
     @Operation(summary = "Update a student")
@@ -48,8 +50,9 @@ public class StudentController {
 
     })
     @PutMapping("/updateStudent/{id}")
-    public ResponseEntity<ResponseObject> updateStudent(@PathVariable int id, @RequestBody Student newStudent){
-        return studentService.updateStudent(id, newStudent);
+    public ResponseEntity<ResponseObject> updateStudent(@PathVariable int id,
+                                                        @RequestBody @Valid StudentRequestDTO studentRequestDTO){
+        return studentService.updateStudent(id, studentRequestDTO);
     }
 
     @Operation(summary = "Delete a student by id")

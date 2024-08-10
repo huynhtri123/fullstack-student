@@ -1,4 +1,4 @@
-package fullstack.student.models;
+package fullstack.student.models.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

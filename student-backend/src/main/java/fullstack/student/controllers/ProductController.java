@@ -2,17 +2,13 @@ package fullstack.student.controllers;
 
 import fullstack.student.exception.FuncErrorException;
 import fullstack.student.exception.NotFoundException;
-import fullstack.student.models.Product;
-import fullstack.student.models.ProductRequestDTO;
-import fullstack.student.models.ResponseObject;
+import fullstack.student.models.dto.ProductRequestDTO;
+import fullstack.student.models.dto.ResponseObject;
 import fullstack.student.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -36,21 +32,17 @@ public class ProductController {
         if (file == null || file.isEmpty())
             throw new NotFoundException("File not found");
 
-        Product product = productService.create(productRequestDTO, file);
-        return ResponseEntity.ok(new ResponseObject(
-                "Created successfully",
-                HttpStatus.OK.value(),
-                product
-        ));
+        return productService.create(productRequestDTO, file);
+
     }
 
     @GetMapping("/getAll")
-    public List<Product> getAll(){
+    public ResponseEntity<ResponseObject> getAll(){
         return productService.getAll();
     }
 
     @GetMapping("/getOne/{id}")
-    public Product getOne(@PathVariable int id){
+    public ResponseEntity<ResponseObject> getOne(@PathVariable int id){
         return productService.getOne(id);
     }
 }
